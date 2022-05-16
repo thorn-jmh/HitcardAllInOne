@@ -1,9 +1,9 @@
-name: 'ZJU-nCov-Hitcarder Action'
+name: 'Hitcarder ALL In One'
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '11 1 * * *'
+    - cron: '3 38 * * *'
 
 jobs:
   main:
