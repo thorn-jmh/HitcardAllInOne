@@ -3,7 +3,7 @@ name: 'Hitcarder ALL In One'
 on:
   workflow_dispatch:
   schedule:
-    - cron: '3 38 * * *'
+    - cron: '43 3,22 * * *'
 
 jobs:
   main:
