@@ -33,6 +33,7 @@ class HitCarder(object):
         self.captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
         self.sess = requests.Session()
         self.sess.keep_alive = False
+        # 重试器
         retry = Retry(connect=3, backoff_factor=0.5)
         adapter = HTTPAdapter(max_retries=retry)
         self.sess.mount('http://', adapter)
@@ -139,7 +140,7 @@ class HitCarder(object):
         new_info['sfzx'] = old_info['sfzx'] # 在校
         new_info['sfymqjczrj'] = old_info['sfymqjczrj'] # 入境
         new_info['sfqrxxss'] = 1 # 属实
-        new_info['campus'] = '玉泉校区' #校区
+        new_info['campus'] = '紫金港校区' #校区
         new_info['verifyCode'] =  ocr.classification(resp.content)#验证码
 
         self.info = new_info
