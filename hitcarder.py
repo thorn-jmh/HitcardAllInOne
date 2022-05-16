@@ -208,13 +208,13 @@ def main(username, password):
         res = hit_carder.post()
         print(res)
         if str(res['e']) == '0':
-            return 0, '打卡成功nya~ o((>ω< ))o'
+            return 0, '打卡成功了……你不会还没睡吧。这么想来彼岸我可以给你来一发符卡'
         elif str(res['m']) == '今天已经填报了':
-            return 0, '今天已经打过卡了喵~ _(:з)∠)_'
+            return 0, '今天的健康打卡已经完成了，我说，你完成今天的工作了没！'
         else:
-            return 1, '打卡失败呜呜呜 ≧ ﹏ ≦'
+            return 1, '有罪！今天打卡失败了，快去自己打卡！'
     except:
-        return 1, '打卡数据提交失败了 Σ(っ °Д °;)っ'
+        return 1, '打卡数据提交失败……趁现在忏悔自己哪里有罪！'
 
 
 if __name__ == "__main__":
