@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from curses import has_key
+from base64 import encode
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
@@ -11,6 +11,7 @@ import os
 import sys
 import message
 import ddddocr
+import pdb
 
 
 class HitCarder(object):
@@ -82,6 +83,8 @@ class HitCarder(object):
         return "%4d%02d%02d" % (today.year, today.month, today.day)
 
     def check_form(self):
+        # pdb.set_trace()
+
         """Get hitcard form, compare with old form """
         res = self.sess.get(self.base_url)
         html = res.content.decode()
@@ -92,13 +95,15 @@ class HitCarder(object):
             raise RegexMatchError('Relative info not found in html with regex')
 
         with open("form.txt", "r", encoding="utf-8") as f:
-            if new_form == f.read():
+            o_form = f.read()
+            if new_form == o_form:
                 return True
-        #with open("form.txt", "w", encoding="utf-8") as f:
-        #     f.write(new_form)
+        #with open("form.txt", "w", encoding="utf-8") as ff:
+        #     ff.write(new_form)
         return False
 
     def get_info(self, html=None):
+        # pdb.set_trace()
         """Get hit card info, which is the old info with updated new time."""
         if not html:
             time.sleep(1)
@@ -142,11 +147,11 @@ class HitCarder(object):
         new_info['sfymqjczrj'] = old_info['sfymqjczrj'] # 入境
         new_info['sfqrxxss'] = 1 # 属实
         new_info['campus'] = '紫金港校区' #校区
-        if has_key('verifyCode'):
+        if new_info.__contains__('verifyCode') :
             new_info['verifyCode'] =  ocr.classification(resp.content)#验证码
 
         self.info = new_info
-        # print(json.dumps(self.info))
+        print(json.dumps(self.info))
         return new_info
 
     def _rsa_encrypt(self, password_str, e_str, M_str):
