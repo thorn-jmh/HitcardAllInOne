@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from curses import has_key
 import requests
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
@@ -141,7 +142,8 @@ class HitCarder(object):
         new_info['sfymqjczrj'] = old_info['sfymqjczrj'] # 入境
         new_info['sfqrxxss'] = 1 # 属实
         new_info['campus'] = '紫金港校区' #校区
-        new_info['verifyCode'] =  ocr.classification(resp.content)#验证码
+        if has_key('verifyCode'):
+            new_info['verifyCode'] =  ocr.classification(resp.content)#验证码
 
         self.info = new_info
         # print(json.dumps(self.info))
