@@ -98,7 +98,8 @@ class HitCarder(object):
             o_form = f.read()
             if new_form == o_form:
                 return True
-        #with open("form.txt", "w", encoding="utf-8") as ff:
+        # if form changed, get new form
+        # with open("form.txt", "w", encoding="utf-8") as ff:
         #     ff.write(new_form)
         return False
 
@@ -142,7 +143,8 @@ class HitCarder(object):
         new_info['address'] = old_info['address']
         new_info['area'] = old_info['area']
         new_info['city'] = old_info['city']
-        new_info['ismoved'] = 0
+        new_info['internship'] = 1
+        new_info['ismoved'] = 5
         new_info['sfzx'] = old_info['sfzx'] # 在校
         new_info['sfymqjczrj'] = old_info['sfymqjczrj'] # 入境
         new_info['sfqrxxss'] = 1 # 属实
@@ -227,6 +229,13 @@ def main(username, password):
 if __name__ == "__main__":
     username = os.environ['USERNAME']
     password = os.environ['PASSWORD']
+    lark_token = os.environ.get('LARK_TOKEN')
+    dingtalk_token = os.environ.get('DINGTALK_TOKEN')
+    # for test
+    # username = ''
+    # password = ''
+    # lark_token = ''
+    # dingtalk_token =''
 
     ret, msg = main(username, password)
     print(ret, msg)
@@ -235,17 +244,11 @@ if __name__ == "__main__":
         ret, msg = main(username, password)
         print(ret, msg)
 
-    dingtalk_token = os.environ.get('DINGTALK_TOKEN')
+
+    if lark_token:
+        ret = message.larkrobot(msg,lark_token)
+        print('send_lark_msg',ret)
+    
     if dingtalk_token:
         ret = message.dingtalk(msg, dingtalk_token)
         print('send_dingtalk_message', ret)
-
-    serverchan_key = os.environ.get('SERVERCHAN_KEY')
-    if serverchan_key:
-        ret = message.serverchan(msg, '', serverchan_key)
-        print('send_serverChan_message', ret)
-
-    pushplus_token = os.environ.get('PUSHPLUS_TOKEN')
-    if pushplus_token:
-        print('pushplus服务已下线，建议使用钉钉')
-        exit(-1)

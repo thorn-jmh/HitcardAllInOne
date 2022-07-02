@@ -1,7 +1,35 @@
+from importlib.resources import contents
+from numpy import true_divide
 import requests
 import json
 import os
 import time
+
+
+def larkrobot(msg, lark_token,tries=5):
+    lark_url = 'https://open.feishu.cn/open-apis/bot/v2/hook/'+lark_token
+    data = {
+        "msg_type": "text",
+        "content":{
+            "text": msg
+        }
+    }
+    header = {'Content-Type': 'application/json'}
+
+    for _ in range(tries):
+        try:
+            req = requests.post(lark_url,data=json.dumps(data),headers=header).json()
+            print(req)
+            if req["StatusCode"] == 0:
+                return True
+        except:
+                pass
+        print("Retrying...")
+        time.sleep(5)
+    return False
+
+
+
 
 
 def dingtalk(msg, dingtalk_token, tries=5):
@@ -50,6 +78,10 @@ def serverchan(text, desp, serverchan_key, tries=5):
 
 if __name__ == "__main__":
     msg = "打卡"*1000
+    lark_token = os.environ.get('LARK_TOKEN')
+    if lark_token:
+        ret = larkrobot(msg,lark_token)
+        print('send_lark_msg',ret)
     dingtalk_token = os.environ.get('DINGTALK_TOKEN')
     if dingtalk_token:
         ret = dingtalk(msg, dingtalk_token)
