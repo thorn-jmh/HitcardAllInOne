@@ -231,11 +231,7 @@ if __name__ == "__main__":
     password = os.environ['PASSWORD']
     lark_token = os.environ.get('LARK_TOKEN')
     dingtalk_token = os.environ.get('DINGTALK_TOKEN')
-    # for test
-    # username = ''
-    # password = ''
-    # lark_token = ''
-    # dingtalk_token =''
+    
 
     ret, msg = main(username, password)
     print(ret, msg)
@@ -246,6 +242,7 @@ if __name__ == "__main__":
 
 
     if lark_token:
+        print('log1')
         ret = message.larkrobot(msg,lark_token)
         print('send_lark_msg',ret)
     

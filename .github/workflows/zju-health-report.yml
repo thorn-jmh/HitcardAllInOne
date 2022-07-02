@@ -15,8 +15,7 @@ jobs:
           - username: ZJU_USERNAME
             password: ZJU_PASSWORD
             dingtalk_token: DINGTALK_TOKEN
-            pushplus_token: PUSHPLUS_TOKEN
-            serverchan_key: SERVERCHAN_KEY
+            lark_token: LARK_TOKEN
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,6 +30,7 @@ jobs:
           USERNAME: ${{ secrets[matrix.username] }}
           PASSWORD: ${{ secrets[matrix.password] }}
           DINGTALK_TOKEN: ${{ secrets[matrix.dingtalk_token] }}
+          LARK_TOKEN: ${{ secrets[matrix.lark_token]}}
         run: |
           python3 ./hitcarder.py
         shell: bash
