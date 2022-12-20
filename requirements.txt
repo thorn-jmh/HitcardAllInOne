@@ -1,2 +1,3 @@
 requests[security]
+numpy
 # ddddocr==1.4.3
