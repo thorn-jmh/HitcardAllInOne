@@ -100,7 +100,7 @@ class HitCarder(object):
                 return True
         # if form changed, get new form
         # with open("form.txt", "w", encoding="utf-8") as ff:
-        #     ff.write(new_form)
+            # ff.write(new_form)
         return False
 
     def get_info(self, html=None):
@@ -231,7 +231,7 @@ if __name__ == "__main__":
     password = os.environ['PASSWORD']
     lark_token = os.environ.get('LARK_TOKEN')
     dingtalk_token = os.environ.get('DINGTALK_TOKEN')
-    
+
 
     ret, msg = main(username, password)
     print(ret, msg)
